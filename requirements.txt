@@ -1,0 +1,10 @@
+streamlit
+chromadb
+pypdf
+sentence-transformers
+pandas
+ortools
+pytest
+ruff
+black
+python-dotenv
