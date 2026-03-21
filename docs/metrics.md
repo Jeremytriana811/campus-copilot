@@ -27,3 +27,12 @@
 - Ingestion success rate:
 - Failed ingestion count:
 - Eval pass rate:
+
+## Foundation Validation Run 1 (2026-03-21)
+- Config import: Pass
+- DB initialization: Pass
+- School pack listing: Pass
+- School pack loading: Pass
+- Logging write/read: Pass
+- Pytest: 4/4 passing
+- Pytest runtime: 0.05s

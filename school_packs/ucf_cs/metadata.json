@@ -1,0 +1,7 @@
+{
+  "school_name": "University of Central Florida",
+  "school_id": "ucf_cs",
+  "catalog_year": "2024-2025",
+  "majors": ["Computer Science"],
+  "terms": ["Fall", "Spring", "Summer"]
+}
