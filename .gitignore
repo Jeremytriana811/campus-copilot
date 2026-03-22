@@ -7,3 +7,4 @@ data/app.db
 .pytest_cache/
 .vscode/
 .DS_Store
+school_packs/*/docs/hold/

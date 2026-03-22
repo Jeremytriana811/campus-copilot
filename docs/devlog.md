@@ -51,6 +51,7 @@ Why this decision:
 Next step:
 - Validate the project foundation before starting ingestion
 
+---
 
 ## 2026-03-21 — Foundation validation before ingestion
 
@@ -98,6 +99,7 @@ Decision:
 Next step:
 - Build PDF ingestion for the curated UCF document set first, then test chunking and indexing
 
+---
 
 ## 2026-03-21 — PDF ingestion and vector indexing
 
@@ -144,3 +146,106 @@ Decision:
 
 Next step:
 - add `retriever.py` and test real retrieval queries before moving to grounded answering
+
+---
+
+## 2026-03-21 — Retrieval validation before grounded answering
+
+Goal:
+- Validate top-k retrieval quality before building grounded answers
+
+What I changed:
+- Added `app/rag/retriever.py`
+- Added retrieval logging
+- Added retrieval test coverage in `tests/test_retriever.py`
+- Added a minimal retrieval debug UI
+- Added `streamlit_app.py` as the project-root Streamlit entrypoint
+- Ran retrieval through the UI instead of terminal-only tests
+- Verified ingestion from the UI
+
+Why I changed it:
+- I wanted to test retrieval independently before adding answer generation
+- I wanted to inspect retrieval behavior in a more realistic product flow
+
+What broke:
+- Running Streamlit from `app/main.py` caused `ModuleNotFoundError: No module named 'app'`
+- Some queries returned semantically related but wrong chunks
+- Prerequisite and required-course questions were weak
+- The elective/course-list PDF appeared to dominate several results
+- Operating Systems prerequisite retrieval was weak
+
+What passed:
+- Retrieval returned top-k results
+- Chroma queries worked
+- Retrieval logs were written
+- Streamlit retrieval debug UI ran successfully from `streamlit_app.py`
+- UI ingestion completed with 60 chunks
+- Some question types, like elective-credit questions, returned useful hits
+- Pytest checks passed
+
+Metrics before:
+- retrieval tests: none
+- retrieval debug UI: not tested
+- tests passing: 6/6
+
+Metrics after:
+- retrieval smoke tests run: 4
+- UI-ingested chunks: 60
+- clearly useful top hit: 1
+- mixed top hit: 1
+- weak top hit: 2
+- tests passing: 7/7
+- pytest runtime: 7.82s
+
+Decision:
+- Use `streamlit_app.py` as the UI entrypoint
+- Retrieval infrastructure works, but retrieval quality is mixed
+- Do not move to grounded answering yet
+- Postpone grounded answering until the source set and retrieval quality improve
+
+Next step:
+- Improve the curated document set and retrieval behavior before moving to grounded answering
+- Continue strengthening the product with admin tooling in parallel
+
+---
+
+## 2026-03-22 — Admin Center and diagnostics
+
+Goal:
+- Add admin workflow and diagnostics without pretending retrieval is already solved
+
+What I changed:
+- Added `app/admin/ingestion.py`
+- Added `app/admin/diagnostics.py`
+- Updated `streamlit_app.py` with an Admin Center workspace
+- Added school pack summary, ingestion control, recent runs, and recent logs
+
+Why I changed it:
+- I wanted the project to feel more like a managed product and not just a script-based prototype
+
+What passed:
+- Admin Center rendered successfully
+- School pack summary displayed correctly
+- UI ingestion button worked
+- Recent ingestion runs displayed
+- Recent logs displayed
+- Retrieval queries and ingestion events were visible in logs
+
+What broke:
+- Nothing major in this phase
+
+Metrics before:
+- admin UI: not implemented
+
+Metrics after:
+- admin workspace: pass
+- school pack summary: pass
+- recent ingestion runs visible: yes
+- recent logs visible: yes
+
+Decision:
+- Continue improving product/admin tooling while retrieval quality is still being refined
+
+Next step:
+- Commit and push the Admin Center phase
+- Move to Evaluation Center, or return later to retrieval tuning
