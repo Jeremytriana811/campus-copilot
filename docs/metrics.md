@@ -46,3 +46,31 @@
 - Pytest: 6/6 passing
 - Pytest runtime: 7.87s
 - Notes: Initial bug came from scanning `docs/` instead of `docs/curated/`
+
+## Retrieval Trial 1 (2026-03-21)
+- Question: What are the prerequisites for Operating Systems?
+- Hit count: 5
+- Top hit useful: No
+- Top document: Computer Science (B.S.).pdf page 6
+- Notes: Retrieval returned a broadly relevant CS requirements chunk, but not a clear prerequisite answer for Operating Systems
+
+## Retrieval Trial 2 (2026-03-21)
+- Question: How many CS elective credits are required?
+- Hit count: 5
+- Top hit useful: Yes
+- Top document: Computer Science (B.S.).pdf page 7
+- Notes: Top hit clearly showed restricted electives as 9 total credits
+
+## Retrieval Trial 3 (2026-03-21)
+- Question: What is the first programming course?
+- Hit count: 5
+- Top hit useful: Mixed
+- Top document: CSIT-Elective-List-AY2025-2026-Updated-on-6-27-25-Added-CNT4425.pdf page 7
+- Notes: Top hit contained useful course descriptions, but the chunk was noisy and not a clean direct answer
+
+## Retrieval Trial 4 (2026-03-21)
+- Question: What courses are required for the computer science major?
+- Hit count: 5
+- Top hit useful: No
+- Top document: CSIT-Elective-List-AY2025-2026-Updated-on-6-27-25-Added-CNT4425.pdf page 3
+- Notes: Retrieval over-weighted elective course descriptions instead of core required courses
