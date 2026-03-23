@@ -7,12 +7,13 @@ from app.admin.ingestion import get_pack_summary, run_ingestion
 from app.admin.diagnostics import get_latest_ingestion_runs
 from app.rag.retriever import retrieve_chunks
 from app.rag.answering import generate_grounded_response
+from app.eval.eval_runner import run_eval
 
 init_db()
 
 st.set_page_config(page_title="Campus Copilot", layout="wide")
 st.title("Campus Copilot")
-st.caption("Grounded academic copilot with evidence, refusal, and admin diagnostics")
+st.caption("Grounded academic copilot with evidence, refusal, admin diagnostics, and evaluation")
 
 packs = list_school_packs()
 
@@ -23,7 +24,7 @@ if not packs:
 school_id = st.sidebar.selectbox("Select school pack", packs)
 workspace = st.sidebar.radio(
     "Workspace",
-    ["Student Copilot", "Retrieval Debug", "Admin Center"]
+    ["Student Copilot", "Retrieval Debug", "Admin Center", "Evaluation Center"]
 )
 
 if workspace == "Student Copilot":
@@ -86,7 +87,7 @@ elif workspace == "Retrieval Debug":
                 st.write(hit["text"])
                 st.divider()
 
-else:
+elif workspace == "Admin Center":
     st.subheader("Admin Center")
 
     summary = get_pack_summary(school_id)
@@ -110,3 +111,18 @@ else:
         st.dataframe(logs, use_container_width=True)
     else:
         st.info("No logs yet.")
+
+else:
+    st.subheader("Evaluation Center")
+    st.write("Run a lightweight offline evaluation on retrieval and refusal behavior.")
+
+    if st.button("Run evaluation suite"):
+        results = run_eval(school_id)
+
+        st.metric("Total Questions", results["total_questions"])
+        st.metric("Passed Questions", results["passed_questions"])
+        st.metric("Grounded Answers", results["grounded_answers"])
+        st.metric("Correct Refusals", results["correct_refusals"])
+
+        st.markdown("### Detailed Results")
+        st.dataframe(results["details"], use_container_width=True)

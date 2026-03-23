@@ -1,0 +1,20 @@
+[
+  {
+    "id": "q1",
+    "question": "How many CS elective credits are required?",
+    "should_refuse": false,
+    "expected_doc": "Computer Science (B.S.).pdf"
+  },
+  {
+    "id": "q2",
+    "question": "Which professor is easiest for CS1?",
+    "should_refuse": true,
+    "expected_doc": null
+  },
+  {
+    "id": "q3",
+    "question": "What are the prerequisites for Operating Systems?",
+    "should_refuse": true,
+    "expected_doc": null
+  }
+]
