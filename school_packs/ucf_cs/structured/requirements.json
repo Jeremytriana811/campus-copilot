@@ -1,0 +1,143 @@
+{
+  "school_id": "ucf_cs",
+  "school_name": "University of Central Florida",
+  "major": "Computer Science",
+  "catalog_year": "2025-2026",
+
+  "minimum_grade_major_courses": "C",
+  "advanced_core_min_gpa": 2.5,
+
+  "required_core_courses": [
+    "COP3330",
+    "COT3100C",
+    "CDA3103C",
+    "CIS3360",
+    "COP3502C",
+    "COP3503C",
+    "COP3402",
+    "COT4210",
+    "COP4331C"
+  ],
+
+  "choice_groups": [
+    {
+      "name": "advanced_core_ai_ml_choice",
+      "credits": 3,
+      "choose": 1,
+      "courses": [
+        "CAP4611",
+        "CAP4630",
+        "CAP4453",
+        "CAP4641"
+      ]
+    },
+    {
+      "name": "technical_writing_choice",
+      "credits": 3,
+      "choose": 1,
+      "courses": [
+        "ENC3241",
+        "ENC3250"
+      ]
+    }
+  ],
+
+  "required_exam_or_milestone": [
+    {
+      "code": "COT3960",
+      "name": "Foundation Exam",
+      "minimum_grade": "S"
+    }
+  ],
+
+  "additional_required_courses": [
+    "STA2023",
+    "COP4934",
+    "COP4935"
+  ],
+
+  "technical_electives": {
+    "credits_required": 18,
+    "eligible_rule": "Any 4000-5000 level Computer Science course that is not a required undergraduate course.",
+    "max_it_courses_allowed": 1,
+    "allowed_it_courses": [
+      "CAP4102",
+      "CIS4004",
+      "CIS4524",
+      "CNT4603",
+      "CNT4703",
+      "CNT4714"
+    ],
+    "max_independent_study_or_research_credits": 3,
+    "cooperative_education_allowed": false
+  },
+
+  "math_statistics_requirement": {
+    "credits_required": 3,
+    "options": [
+      "MAC2313",
+      "MAP2302",
+      "MAS3105",
+      "MAS3106"
+    ],
+    "also_allowed_rule": "Any 4000-5000 level Math/Statistics course with a MAA, MAD, MAS, or STA prefix, excluding independent study, internship, and cooperative education."
+  },
+
+  "flex_stem_requirement": {
+    "credits_required": 6,
+    "allowed_prefixes": [
+      "CAP",
+      "CGS",
+      "CDA",
+      "CIS",
+      "CNT",
+      "COP",
+      "COT",
+      "BME",
+      "CCE",
+      "CEG",
+      "CES",
+      "CGN",
+      "CWR",
+      "EAS",
+      "EEE",
+      "EEL",
+      "EGN",
+      "EGS",
+      "EIN",
+      "EMA",
+      "EML",
+      "ENV",
+      "ESI",
+      "TTE",
+      "MAA",
+      "MAC",
+      "MAD",
+      "MAP",
+      "MAS",
+      "MTG",
+      "STA",
+      "BCH",
+      "BOT",
+      "BSC",
+      "CHM",
+      "CHS",
+      "MCB",
+      "PCB",
+      "PHY",
+      "PHZ",
+      "ZOO"
+    ],
+    "minimum_course_level": 2000
+  },
+
+  "unmodeled_for_v1": [
+    "GEP requirements",
+    "free electives to reach 120 total credits",
+    "foreign language requirement",
+    "nine summer credits",
+    "civic literacy requirement",
+    "residency and exit requirements",
+    "CECS progress policy"
+  ]
+}
