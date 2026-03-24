@@ -1,5 +1,5 @@
 ## Architecture
-![Campus Copilot Architecture](screenshots/Screenshot2026-03-23204359.png)
+![Campus Copilot Architecture](screenshots/CoP.png)
 
 # Campus Copilot
 
