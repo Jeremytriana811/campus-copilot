@@ -2,6 +2,9 @@
 
 Campus Copilot is a grounded academic copilot for advising Q&A, degree checking, planning, and schedule validation using official university documents and structured program rules.
 
+## Architecture
+![Architecture](screenshots/architecture.png)
+
 ## What it does
 - Ingests official school documents into a local retrieval index
 - Answers supported questions with evidence from source documents
