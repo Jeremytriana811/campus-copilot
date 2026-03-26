@@ -249,3 +249,175 @@ Decision:
 Next step:
 - Commit and push the Admin Center phase
 - Move to Evaluation Center, or return later to retrieval tuning
+
+## 2026-03-22 — Refusal logic fix for Student Copilot
+
+Goal:
+- Prevent unsupported question types from being incorrectly labeled as grounded
+
+What I changed:
+- Updated `app/rag/answering.py`
+- Added simple unsupported-question pattern refusal
+- Tightened the grounded-answer distance threshold
+
+Why I changed it:
+- The Student Copilot incorrectly marked unsupported professor-ranking questions as grounded when retrieval returned semantically nearby but irrelevant chunks
+
+What passed:
+- Student Copilot UI, evidence panel, and supported-question flow were already working
+- Unsupported questions now refuse instead of showing misleading evidence
+
+What broke:
+- Some borderline retrieval cases now refuse more often, including weak prerequisite queries, but that is safer than false confidence
+
+Decision:
+- Prefer conservative refusal over false confidence while retrieval quality is still mixed
+
+Next step:
+- Commit and push the Student Copilot phase, then move to the Evaluation Center
+
+## 2026-03-22 — Evaluation Center
+
+Goal:
+- Add a simple offline evaluation workflow for retrieval and refusal behavior
+
+What I changed:
+- Added `app/eval/eval_questions.json`
+- Added `app/eval/eval_runner.py`
+- Updated `streamlit_app.py` with an Evaluation Center workspace
+
+Why I changed it:
+- I wanted a measurable way to inspect pass/fail behavior before moving to more advanced answer generation
+
+What passed:
+- Evaluation Center rendered successfully
+- Evaluation suite ran from the UI
+- Results table displayed pass/fail details
+- Eval runs were recorded in SQLite
+- Run 1 finished with 3/3 passing
+- The system produced 1 grounded answer and 2 correct refusals
+
+What broke:
+- Nothing major in this phase
+- Streamlit showed a non-blocking deprecation warning about `use_container_width`
+
+Decision:
+- Keep improving measurable quality before more advanced answering behavior
+- Treat the Streamlit warning as a cleanup task, not a functional issue
+
+Next step:
+- Commit and push the Evaluation Center phase
+
+What passed:
+- Pytest checks passed
+- Test suite is now 7/7 passing
+
+Metrics after:
+- tests passing: 7/7
+- pytest runtime: 35.75s
+
+## 2026-03-22 — Structured degree checker
+
+Goal:
+- Add deterministic requirement-checking logic using structured UCF program rules
+
+What I changed:
+- Added `school_packs/ucf_cs/structured/requirements.json`
+- Added `app/planner/checker.py`
+- Added `tests/test_degree_checker.py`
+
+Why I changed it:
+- I wanted requirement checking to use structured and auditable rules instead of relying on retrieval or language generation
+
+What passed:
+- The checker loaded structured requirements successfully
+- Missing core courses were identified correctly
+- Choice-group logic worked
+- Milestone checks worked
+- Pytest checks passed
+- Manual smoke test returned the expected missing-core, choice-group, and milestone results
+
+What broke:
+- Nothing major in this phase
+
+Metrics after:
+- tests passing: 10/10
+- pytest runtime: 35.73s
+- manual smoke test: pass
+
+Decision:
+- Keep degree progress logic deterministic and separate from grounded QA
+
+Next step:
+- Commit and push the degree checker phase
+
+## 2026-03-22 — Better planner foundation
+
+Goal:
+- Add a term-by-term planner that is stronger than simple course grouping but still easy to explain and test
+
+What I changed:
+- Added `app/planner/generator.py`
+- Added `tests/test_planner.py`
+- Added a small prerequisite map for key required-course sequencing
+- Added simple choice-group planning support
+
+Why I changed it:
+- I wanted the planner to respect basic academic sequencing instead of just splitting missing courses into equal-size terms
+
+What passed:
+- The planner respected max-courses-per-term limits
+- The planner did not re-plan already completed courses
+- Dependent courses were placed after prerequisite courses
+- Pytest checks passed
+- Manual smoke test produced a valid multi-term plan with no unresolved courses
+
+What broke:
+- Nothing major in this phase
+
+Metrics after:
+- tests passing: 13/13
+- pytest runtime: 8.31s
+- manual smoke test: pass
+
+Decision:
+- Keep the planner deterministic and modest in scope
+- Treat this as a stronger v1 planner, not the final full academic planner
+
+Next step:
+- Commit and push the planner phase
+
+## 2026-03-22 — Scheduler foundation
+
+Goal:
+- Add a simple deterministic schedule-conflict checker
+
+What I changed:
+- Added `app/scheduler/solver.py`
+- Added `tests/test_scheduler.py`
+
+Why I changed it:
+- I wanted the scheduling layer to use deterministic conflict logic instead of relying on language generation
+
+What passed:
+- Overlapping sections on the same day were detected correctly
+- Different-day sections were allowed
+- Conflict-free schedules returned success
+- Conflicting schedules returned failure
+- Pytest checks passed
+- Manual smoke tests returned the expected success and failure outputs
+
+What broke:
+- Nothing major in this phase
+
+Metrics after:
+- tests passing: 17/17
+- pytest runtime: 7.59s
+- manual smoke test (success): pass
+- manual smoke test (failure): pass
+
+Decision:
+- Keep scheduling logic deterministic and easy to explain before adding more advanced optimization
+
+Next step:
+- Commit and push the scheduler phase

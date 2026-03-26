@@ -84,3 +84,27 @@ A grounded copilot should not answer confidently when the source documents do no
 
 ## Why add an Evaluation Center before more advanced answering?
 I wanted measurable pass/fail feedback before making the copilot feel smarter. That let me inspect retrieval and refusal behavior separately instead of hiding weak retrieval behind polished responses.
+
+## What did the first evaluation run show?
+The first run passed all 3 eval questions. The system handled one supported question with a grounded answer and correctly refused two unsupported or weakly supported questions.
+
+## Why use structured rules for degree checking instead of retrieval?
+Degree checking is a deterministic policy problem, not just a document-QA problem. Structured rules make the logic auditable, repeatable, and easier to test.
+
+## What did the first degree-checker run show?
+The checker correctly identified missing core courses, recognized that `CAP4630` satisfied the AI/ML choice group, showed that the technical writing choice was still incomplete, and marked `COT3960` as a missing milestone.
+
+## Why is this planner better than a simple course splitter?
+It respects prerequisite ordering, avoids re-planning completed courses, and handles simple choice groups. That makes the output more realistic while keeping the logic deterministic and easy to test.
+
+## What did the first planner run show?
+The planner generated a valid multi-term sequence, avoided already completed courses like `COP3502C`, `COT3100C`, and `CAP4630`, selected `ENC3241` for the technical writing choice group, and finished with no unresolved courses.
+
+## Why keep scheduling deterministic instead of letting the model do it?
+Scheduling is a constraint problem. Deterministic logic makes conflicts auditable, predictable, and easier to test than free-form language generation.
+
+## What does the scheduler currently do?
+It checks whether selected class sections overlap and clearly reports success or failure. This is the foundation before adding more advanced optimization later.
+
+## What did the first scheduler run show?
+The scheduler correctly returned success for non-overlapping sections and failure for overlapping sections on the same day, including a clear conflict pair in the output.
